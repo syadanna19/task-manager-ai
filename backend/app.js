@@ -1,4 +1,6 @@
+//app applications are for testing purpose
 const express = require('express');
+
 
 const app = express();
 const port = process.env.PORT || 3000;

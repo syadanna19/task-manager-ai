@@ -1,0 +1,13 @@
+{
+  "name": "task-manager-ai",
+  "version": "1.0.0",
+  "description": "Task Manager API",
+  "main": "backend/app.js",
+  "scripts": {
+    "start": "node backend/app.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.3"
+  }
+}
