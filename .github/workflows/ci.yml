@@ -1,5 +1,6 @@
 name: CI
-
+permissions:
+  contents: write
 on:
   push:
     branches: [ main ]
@@ -23,3 +24,8 @@ jobs:
 
       - name: Verify app
         run: node -e "console.log('Node app is running successfully')"
+      - name: Deploy Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./frontend
