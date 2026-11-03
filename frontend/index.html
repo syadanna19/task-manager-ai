@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(90%, 500px);
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        padding: 24px;
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      input {
+        flex: 1;
+        padding: 12px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        border: none;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      #task-form button {
+        background: #2563eb;
+        color: white;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 10px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      li:last-child {
+        border-bottom: none;
+      }
+
+      .task-text {
+        flex: 1;
+        word-break: break-word;
+      }
+
+      .delete-btn {
+        background: #ef4444;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Task Manager</h1>
+
+      <form id="task-form">
+        <input
+          id="task-input"
+          type="text"
+          placeholder="Add a new task"
+          aria-label="New task"
+          required
+        />
+        <button type="submit">Add Task</button>
+      </form>
+
+      <ul id="task-list"></ul>
+    </div>
+
+    <script>
+      const taskForm = document.getElementById('task-form');
+      const taskInput = document.getElementById('task-input');
+      const taskList = document.getElementById('task-list');
+
+      const tasks = ['Learn JavaScript', 'Build a simple app'];
+
+      function renderTasks() {
+        taskList.innerHTML = '';
+
+        tasks.forEach((task, index) => {
+          const li = document.createElement('li');
+          const taskText = document.createElement('span');
+          taskText.className = 'task-text';
+          taskText.textContent = task;
+
+          const deleteButton = document.createElement('button');
+          deleteButton.type = 'button';
+          deleteButton.className = 'delete-btn';
+          deleteButton.textContent = 'Delete';
+          deleteButton.setAttribute('data-index', index);
+
+          li.appendChild(taskText);
+          li.appendChild(deleteButton);
+          taskList.appendChild(li);
+        });
+      }
+
+      taskForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const newTask = taskInput.value.trim();
+
+        if (!newTask) {
+          return;
+        }
+
+        tasks.push(newTask);
+        taskInput.value = '';
+        renderTasks();
+      });
+
+      taskList.addEventListener('click', function (event) {
+        const deleteButton = event.target.closest('.delete-btn');
+
+        if (!deleteButton) {
+          return;
+        }
+
+        const index = Number(deleteButton.getAttribute('data-index'));
+        tasks.splice(index, 1);
+        renderTasks();
+      });
+
+      renderTasks();
+    </script>
+  </body>
+</html>
+
