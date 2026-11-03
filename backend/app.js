@@ -1,4 +1,4 @@
-//app applications
+//app applications are for testing purpose
 const express = require('express');
 
 
